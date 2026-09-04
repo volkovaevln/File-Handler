@@ -6,14 +6,11 @@ import java.io.IOException;
 
 public class FileHandler {
 
-    private final static String BASE_PATH = "files/";
-
-    public String writeFile(String fileName, String fileContent) {
-        try (FileWriter fw = new FileWriter(BASE_PATH + fileName + ".txt")) {
+    public void writeFile(String path, String fileContent) {
+        try (FileWriter fw = new FileWriter(path)) {
             fw.write(fileContent);
-            return "Success.";
         } catch (IOException e) {
-            return e.getMessage();
+            throw new RuntimeException("Could not write file: " + path, e);
         }
     }
 
@@ -28,7 +25,7 @@ public class FileHandler {
             return stringBuilder.toString();
 
         } catch (IOException e) {
-            return e.getMessage();
+            throw new RuntimeException("Could not read file: " + path, e);
         }
     }
 }
