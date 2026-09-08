@@ -8,10 +8,18 @@ public class Main {
         FileHandler handler = new FileHandler();
         String fileName = "myfile.txt";
         String fileContent = "My very important information.";
-        handler.writeFile(BASE_PATH + fileName, fileContent);
-        String content = handler.readFile(BASE_PATH + fileName);
-        getOutput("RESULT: Success.");
-        getOutput("FILE CONTENT: " + content);
+        String path = BASE_PATH + fileName;
+
+        try {
+            handler.writeFile(path, fileContent);
+            String content = handler.readFile(path);
+
+            getOutput("RESULT: Success.");
+            getOutput("FILE CONTENT: " + content);
+        } catch (RuntimeException ex) {
+            System.err.println("ERROR: " + ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
     private static void getOutput(String output) {
